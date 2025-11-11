@@ -1,0 +1,1 @@
+echo "0 2 * * * /path/to/script.sh" | crontab -
