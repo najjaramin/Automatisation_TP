@@ -6,9 +6,9 @@ import (
 )
 
 func main() {
-	from := "tonmail@gmail.com"
-	password := "tonpassword"
-	to := []string{"destinataire@gmail.com"}
+	from := "aminnajjar243@gmail.com"
+	password := "qfpjnpuoetrappea"
+	to := []string{"aminnajjar3@gmail.com"}
 	smtpHost := "smtp.gmail.com"
 	smtpPort := "587"
 

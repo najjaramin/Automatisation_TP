@@ -3,9 +3,9 @@ from email.mime.text import MIMEText
 
 smtp_server = "smtp.gmail.com"
 port = 587
-sender = "tonmail@gmail.com"
-password = "tonpassword"  # attention : tester avec compte test
-receiver = "destinataire@gmail.com"
+sender = "aminnajjar243@gmail.com"
+password = "qfpjnpuoetrappea"  
+receiver = "aminnajjar3@gmail.com"
 subject = "Alerte"
 message = "Ceci est un test d'alerte"
 
