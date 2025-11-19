@@ -1,11 +1,25 @@
 import smtplib
-from email.message import EmailMessage
+from email.mime.text import MIMEText
 
-msg = EmailMessage()
-msg.set_content("Message d'alerte personnalisé")
-msg["Subject"] = "Alerte système"
-msg["From"] = "expediteur@example.com"
-msg["To"] = "aminnajjar3@gmail.com"
+smtp_server = "smtp.gmail.com"
+port = 587
+sender = "tonmail@gmail.com"
+password = "tonpassword"  # attention : tester avec compte test
+receiver = "destinataire@gmail.com"
+subject = "Alerte"
+message = "Ceci est un test d'alerte"
 
-with smtplib.SMTP("localhost") as s:
-    s.send_message(msg)
+msg = MIMEText(message)
+msg["Subject"] = subject
+msg["From"] = sender
+msg["To"] = receiver
+
+try:
+    server = smtplib.SMTP(smtp_server, port)
+    server.starttls()
+    server.login(sender, password)
+    server.sendmail(sender, receiver, msg.as_string())
+    server.quit()
+    print("Mail envoyé")
+except Exception as e:
+    print("Erreur :", e)

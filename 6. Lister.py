@@ -1,4 +1,4 @@
-import subprocess
+import os
 
-output = subprocess.check_output(["who"]).decode()
-print("Utilisateurs connectés :\n", output)
+print("Utilisateurs connectés :")
+os.system("query user")

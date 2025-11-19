@@ -1,5 +1,7 @@
-if curl -s -o /dev/null -w "%{http_code}" https://example.com | grep -q "200"; then
-    echo "Site accessible"
+URL="https://example.com"
+STATUS=$(curl -o /dev/null -s -w "%{http_code}" $URL)
+if [ "$STATUS" -eq 200 ]; then
+  echo "Site accessible"
 else
-    echo "Site inaccessible"
+  echo "Site inaccessible $STATUS"
 fi

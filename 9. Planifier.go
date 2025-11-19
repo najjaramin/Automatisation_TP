@@ -1,13 +1,16 @@
 package main
 
 import (
-    "os/exec"
+	"fmt"
+	"os/exec"
 )
 
 func main() {
-    cmd := exec.Command("bash", "-c", `echo "0 2 * * * /path/to/script.sh" | crontab -`)
-    err := cmd.Run()
-    if err != nil {
-        panic(err)
-    }
+	cmd := `schtasks /Create /SC DAILY /TN TestScript /TR "python C:\Users\Public\TP_Automatisation\1.supprime.py" /ST 02:00 /F`
+	err := exec.Command("cmd", "/C", cmd).Run()
+	if err != nil {
+		fmt.Println("Erreur :", err)
+	} else {
+		fmt.Println("Tâche planifiée à 2h du matin")
+	}
 }

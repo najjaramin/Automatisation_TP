@@ -1,19 +1,27 @@
 package main
 
 import (
-    "os"
-    "path/filepath"
-    "time"
+	"fmt"
+	"os"
+	"path/filepath"
+	"time"
 )
 
 func main() {
-    logDir := "/var/log/myapp"
-    cutoff := time.Now().AddDate(0, 0, -7)
+	logDir := `C:\Users\Public\TP_Automatisation\test_logs`
+	days := 7
+	limit := time.Now().AddDate(0, 0, -days)
 
-    filepath.Walk(logDir, func(path string, info os.FileInfo, err error) error {
-        if err == nil && !info.IsDir() && info.ModTime().Before(cutoff) {
-            os.Remove(path)
-        }
-        return nil
-    })
+	os.MkdirAll(logDir, os.ModePerm)
+
+	filepath.Walk(logDir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if !info.IsDir() && info.ModTime().Before(limit) {
+			fmt.Println("Suppression de :", path)
+			os.Remove(path)
+		}
+		return nil
+	})
 }

@@ -1,15 +1,13 @@
 package main
 
 import (
-    "fmt"
-    "os/exec"
+	"fmt"
+	"os/exec"
 )
 
 func main() {
-    out, err := exec.Command("who").Output()
-    if err != nil {
-        fmt.Println("Erreur:", err)
-        return
-    }
-    fmt.Println("Utilisateurs connectés :\n", string(out))
+	fmt.Println("Utilisateurs connectés :")
+	cmd := exec.Command("query", "user")
+	cmd.Stdout = exec.Stdout
+	cmd.Run()
 }

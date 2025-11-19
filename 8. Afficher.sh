@@ -1,1 +1,3 @@
-du -ah . | sort -rh | head -n 5
+#!/bin/bash
+FOLDER="/c/Users/Public/TP_Automatisation/test_logs"
+ls -S "$FOLDER" | head -5

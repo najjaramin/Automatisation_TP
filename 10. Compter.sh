@@ -1,3 +1,4 @@
-read -p "Entrez le nom de l'utilisateur : " user
-count=$(ps -u "$user" --no-headers | wc -l)
-echo "Nombre de processus pour l'utilisateur $user : $count"
+#!/bin/bash
+USER=$(whoami)
+COUNT=$(powershell.exe -Command "(Get-Process | Where-Object {$_.StartInfo.EnvironmentVariables['USERNAME'] -eq '$USER'}).Count")
+echo "$COUNT processus pour $USER"

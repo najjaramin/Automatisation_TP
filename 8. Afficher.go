@@ -1,31 +1,30 @@
 package main
 
 import (
-    "fmt"
-    "os"
-    "sort"
+	"fmt"
+	"io/ioutil"
+	"sort"
 )
 
-type FileInfo struct {
-    Name string
-    Size int64
+type FileSize struct {
+	Name string
+	Size int64
 }
 
 func main() {
-    entries, _ := os.ReadDir(".")
-    var files []FileInfo
-
-    for _, entry := range entries {
-        if info, err := entry.Info(); err == nil && !info.IsDir() {
-            files = append(files, FileInfo{info.Name(), info.Size()})
-        }
-    }
-
-    sort.Slice(files, func(i, j int) bool {
-        return files[i].Size > files[j].Size
-    })
-
-    for i := 0; i < 5 && i < len(files); i++ {
-        fmt.Printf("%s: %.2f MB\n", files[i].Name, float64(files[i].Size)/(1024*1024))
-    }
+	folder := `C:\Users\Public\TP_Automatisation\test_logs`
+	files, _ := ioutil.ReadDir(folder)
+	var fs []FileSize
+	for _, f := range files {
+		if !f.IsDir() {
+			fs = append(fs, FileSize{f.Name(), f.Size()})
+		}
+	}
+	sort.Slice(fs, func(i, j int) bool { return fs[i].Size > fs[j].Size })
+	for i, f := range fs {
+		if i >= 5 {
+			break
+		}
+		fmt.Printf("%s : %d octets\n", f.Name, f.Size)
+	}
 }

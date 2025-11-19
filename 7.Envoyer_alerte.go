@@ -1,18 +1,24 @@
 package main
 
 import (
-    "net/smtp"
+	"fmt"
+	"net/smtp"
 )
 
 func main() {
-    from := "expediteur@example.com"
-    to := "aminnajjar3@gmail.com"
-    subject := "Alerte système"
-    body := "Message d'alerte personnalisé"
+	from := "tonmail@gmail.com"
+	password := "tonpassword"
+	to := []string{"destinataire@gmail.com"}
+	smtpHost := "smtp.gmail.com"
+	smtpPort := "587"
 
-    msg := "Subject: " + subject + "\n\n" + body
-    err := smtp.SendMail("localhost:25", nil, from, []string{to}, []byte(msg))
-    if err != nil {
-        panic(err)
-    }
+	message := []byte("Subject: Alerte\r\n\r\nCeci est un test d'alerte")
+
+	auth := smtp.PlainAuth("", from, password, smtpHost)
+	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, from, to, message)
+	if err != nil {
+		fmt.Println("Erreur:", err)
+	} else {
+		fmt.Println("Mail envoyé")
+	}
 }

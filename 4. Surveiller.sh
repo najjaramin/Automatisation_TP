@@ -1,6 +1,7 @@
-free_percent=$(df / | awk 'NR==2 {print 100 - $5}')
-if [ "$free_percent" -lt 10 ]; then
-    echo "⚠️ Alerte : espace disque libre inférieur à 10%"
+#!/bin/bash
+FREE=$(df -h /c | tail -1 | awk '{print $5}' | sed 's/%//')
+if [ "$FREE" -lt 10 ]; then
+  echo "Alerte ! Espace disque faible : $FREE%"
 else
-    echo "Espace libre : $free_percent%"
+  echo "Espace disque OK : $FREE%"
 fi

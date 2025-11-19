@@ -1,25 +1,18 @@
 package main
 
 import (
-    "fmt"
-    "syscall"
+	"fmt"
+	"golang.org/x/sys/windows"
 )
 
 func main() {
-    var stat syscall.Statfs_t
-    err := syscall.Statfs("/", &stat)
-    if err != nil {
-        fmt.Println("Erreur:", err)
-        return
-    }
-
-    total := stat.Blocks * uint64(stat.Bsize)
-    free := stat.Bavail * uint64(stat.Bsize)
-    percentFree := float64(free) / float64(total) * 100
-
-    if percentFree < 10 {
-        fmt.Println("⚠️ Alerte : espace disque libre inférieur à 10%")
-    } else {
-        fmt.Printf("Espace libre : %.2f%%\n", percentFree)
-    }
+	var free, total uint64
+	path := "C:\\"
+	windows.GetDiskFreeSpaceEx(path, &free, &total, nil)
+	percentFree := float64(free) / float64(total) * 100
+	if percentFree < 10 {
+		fmt.Printf("Alerte ! Espace disque faible : %.2f%%\n", percentFree)
+	} else {
+		fmt.Printf("Espace disque OK : %.2f%%\n", percentFree)
+	}
 }
